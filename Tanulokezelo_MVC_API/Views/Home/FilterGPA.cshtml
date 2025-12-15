@@ -1,0 +1,46 @@
+﻿@model Tanulokezelo_MVC_API.Models.FilterStudent
+
+<form method="post">
+    <h2>A <input type="number" step="0.01" placeholder="3.5" style="width:100px" asp-for="GPA" /> átlag feletti tanulók keresése</h2>
+    <button type="submit">Szűrés</button>
+</form>
+
+<br />
+<br />
+
+
+@if (Model.filteredList != null)
+{
+    <h2 class="alert-info">@Model.GPA átlag feletti tanulók</h2>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>OM azonosító</th>
+                <th>Neve</th>
+                <th>Kora</th>
+                <th>Átlaga</th>
+                <th>Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.filteredList)
+            {
+                <tr>
+                    <td>@t.OMidentifier</td>
+                    <td>@t.Name</td>
+                    <td>@t.Age</td>
+                    <td>@t.GPA</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="Details" asp-route-om="@t.OMidentifier">Részletek</a>
+
+                        <a class="btn btn-info" asp-action="Update" asp-route-om="@t.OMidentifier">Módosítás</a>
+
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-om="@t.OMidentifier">Törlés</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a class="btn btn-info mt-3" asp-controller="Home" asp-action="Index">Vissza a főoldalra</a>
